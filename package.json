@@ -12,5 +12,17 @@
   "dependencies": {
     "chokidar": "^2.0.0",
     "falafel": "^2.1.0"
-  }
+  },
+  "directories": {
+    "example": "example"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshwnj/hot-pockets.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joshwnj/hot-pockets/issues"
+  },
+  "homepage": "https://github.com/joshwnj/hot-pockets#readme"
 }
