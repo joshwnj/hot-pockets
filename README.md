@@ -27,7 +27,13 @@ hp(() => {
 
 ## Pure modules
 
-When you have a module that causes no side-effects, and just exports a function or a value, we can tell `hot-pockets` to hot-load the whole thing by putting `//@hp:pure` at the top. When you save changes to a pure module, any `hp(() => { ... })` that uses it will be re-executed with the new code.
+If no `hot-pockets` instructions are found in a module it is considered a "pure" module, and the whole thing will be hot-loaded.
+
+When you save changes to a pure module, any `hp(() => { ... })` that uses it will be re-executed with the new code.
+
+## Ignoring modules
+
+If you know a module causes side-effects, but you don't want to create a hot-pocket, you can tell `hot-pockets` to ignore the module by placing `//@hp:ignore` at the top.
 
 ## Status
 

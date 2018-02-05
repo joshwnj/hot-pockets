@@ -34,6 +34,7 @@ function parse (src) {
     }
 
     if (node.type === 'CallExpression'
+        && localName
         && node.callee.name === localName) {
       nodes.hpCall = node
       nodes.hpCallFunc = node.arguments[0]
@@ -54,9 +55,9 @@ module.exports = function attachHook(sources, pureModules, extension) {
 
     let src = fs.readFileSync(filename, 'utf8')
 
-    if (src.includes('//@hp:pure')) {
-      // case: pure module via comment
-      pureModules[filename] = true
+    if (src.includes('//@hp:ignore')) {
+      // case: ignore this module
+      // TODO: add an option to ignore by regex, so you don't need to modify files.
       return existingHook(m, filename)
     }
 
@@ -79,7 +80,8 @@ module.exports = function attachHook(sources, pureModules, extension) {
  }
 })`)
     } else {
-      // case: no hotpocket calls
+      // case: no hotpocket calls. Consider this a "pure" module.
+      pureModules[filename] = true
       return existingHook(m, filename)
     }
     
