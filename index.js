@@ -35,7 +35,10 @@ ipc.on('hp:file-changed', (event, f) => {
   })
 })
 
-attachHook(sources, pureModules, '.js')
+attachHook(sources, pureModules, {
+  extension: '.js',
+  pauseOnEvalError: true
+})
 
 module.exports = function (filename, updateFunc, evalFunc) {
   updateSrcs[filename] = updateFunc.toString()

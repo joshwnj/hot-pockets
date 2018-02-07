@@ -44,7 +44,7 @@ function parse (src) {
   return nodes
 }
 
-module.exports = function attachHook(sources, pureModules, extension) {
+module.exports = function attachHook(sources, pureModules, { pauseOnEvalError = true, extension }) {
   const existingHook = require.extensions[extension]
 
   require.extensions[extension] = function hook (m, filename) {
@@ -72,12 +72,10 @@ module.exports = function attachHook(sources, pureModules, extension) {
       nodes.hpCall.update(`hp(__filename, ${nodes.hpCallFunc.source()}, function (src) {
  ${nodes.requires.map(n => n.source()).join('\n')}
 
- try {
-   eval(src)
- } catch (e) {
-   console.error('eval fail', e)
-   console.error(src)
- }
+ eval(\`try { \` + src + \` } catch (e) {
+    console.error(e);
+    ${pauseOnEvalError ? 'debugger' : ''}
+  }\`)
 })`)
     } else {
       // case: no hotpocket calls. Consider this a "pure" module.
