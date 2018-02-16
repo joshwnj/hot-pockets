@@ -1,6 +1,6 @@
 {
   "name": "hot-pockets",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Little hot-loading pockets of javascript",
   "main": "index.js",
   "scripts": {
