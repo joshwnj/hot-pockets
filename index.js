@@ -41,6 +41,12 @@ attachHook(sources, pureModules, {
 })
 
 module.exports = function (filename, updateFunc, evalFunc) {
+  // handle case where source has not been transformed by attachHook
+  if (typeof filename === 'function') {
+    filename()
+    return
+  }
+
   updateSrcs[filename] = updateFunc.toString()
   evalFuncs[filename] = evalFunc
 
